@@ -295,4 +295,44 @@ def average_group(N,iteration_runs):
 
     return numberG
 
+def search_loop(N,final_list):
+    total = N*(N-1)/2
+    total_rr = 0
+    total_rb = 0
+    total_rg = 0
+    total_bb = 0
+    total_bg = 0
+    total_gg = 0
+    for i in final_list:
+        length = len(list(i))
+        if length != 1:
+            for m in range(length):
+                for n in range(m+1,length):
+                    if i[list(i)[m]] == "R" and i[list(i)[n]] == "R":
+                        total_rr += 1
+                    elif i[list(i)[m]] == "R" and i[list(i)[n]] == "B":
+                        total_rb += 1
+                    elif i[list(i)[m]] == "R" and i[list(i)[n]] == "G":
+                        total_rg += 1
+                    elif i[list(i)[m]] == "B" and i[list(i)[n]] == "R":
+                        total_rb += 1
+                    elif i[list(i)[m]] == "B" and i[list(i)[n]] == "B":
+                        total_bb += 1
+                    elif i[list(i)[m]] == "B" and i[list(i)[n]] == "G":
+                        total_bg += 1
+                    elif i[list(i)[m]] == "G" and i[list(i)[n]] == "B":
+                        total_bg += 1
+                    elif i[list(i)[m]] == "G" and i[list(i)[n]] == "G":
+                        total_gg += 1
+                    elif i[list(i)[m]] == "G" and i[list(i)[n]] == "R":
+                        total_rg += 1
+    total_rr = total_rr/total
+    total_rb = total_rb/total
+    total_rg = total_rg/total
+    total_bb = total_bb/total
+    total_bg = total_bg/total
+    total_gg = total_gg/total
+    return total_rr,total_rb,total_rg,total_bb,total_bg,total_gg
+
+
 
