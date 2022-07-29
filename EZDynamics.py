@@ -9,22 +9,28 @@ probability to be drawn. The initial list created is a list of individual dictio
 def create_initial(n,pr,pb):
     i = 0
     new_list = []
+    red_list = []
+    blue_list = []
+    green_list = []
     while i < n:
         rnumber = random.random()
         if rnumber < pr :
             tel = {}
             tel[i] = "R"
             new_list.append(tel)
+            red_list.append(i)
         elif pr < rnumber < pr+pb :
             tel = {}
             tel[i] = "B"
             new_list.append(tel)
+            blue_list.append(i)
         else :
             tel = {}
             tel[i] = "G"
             new_list.append(tel)
+            green_list.append(i)
         i = i+1
-    return new_list
+    return new_list,red_list,blue_list,green_list
 
 """
 the function named, dissolve(listi), dissolves the listi that I have input into the system and stores each element

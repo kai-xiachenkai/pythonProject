@@ -13,29 +13,30 @@ n = 1000
 v_fr = 0.03
 v_fb = 0.03
 v_fg = 0.03
-v_rr = 0.4
-v_rb = 0.1
-v_rg = 0.1
-v_br = 0.1
-v_bb = 0.4
-v_bg = 0.1
-v_gr = 0.1
-v_gb = 0.1
-v_gg = 0.4
+v_rr = 0.5
+v_rb = 0.5*0.5
+v_rg = 0.5*0.5
+v_br = 0.5*0.5
+v_bb = 0.5
+v_bg = 0.5*0.5
+v_gr = 0.5*0.5
+v_gb = 0.5*0.5
+v_gg = 0.5
 
 beta = 0.002
 gamma = 0.015
 
-pr = 0.26
+pr = 1/2*10/10
+pg = 1/2*5/10
 
 
-pb = 1/3
-initial_list = create_initial(n,pr,pb)
+pb = 1-pg-pr
+initial_list,red_list,blue_list,green_list = create_initial(n,pr,pb)
 
 groupN, iteration_runs, final_list = EZ_formation(n, N, initial_list, v_fr, v_fb, v_fg, v_rr, v_rb, v_rg, v_br, v_bb, v_bg, v_gr, v_gb, v_gg)
 
 total_run = 0
-m = 1000
+m = 500
 N1 = 1200
 RR_list = []
 RB_list = []
@@ -46,6 +47,7 @@ BG_list = []
 GR_list = []
 GB_list = []
 GG_list = []
+trans_rate = []
 recover_rate = []
 infect_rate = []
 
@@ -58,8 +60,16 @@ while total_run < 100:
 
     SIR_list = creat_SIR(n)
     BigG = search_big(final_list)
-    item = random.choice(list(BigG))
-    SIR_list[item] = "I"
+    #item = random.choice(list(BigG))
+    if find_R(BigG) == "NA":
+        if len(red_list) == 0:
+            print(0)
+        else:
+            item = random.choice(red_list)
+            SIR_list[item] = "I"
+    else:
+        item = find_R(BigG)
+        SIR_list[item] = "I"
 
     RR = 0
     RB = 0
@@ -99,15 +109,18 @@ while total_run < 100:
 
     recover_rate.append(a/n)
     infect_rate.append(b/n)
-    RR_list.append(RR/total_trans)
-    RB_list.append(RB/total_trans)
-    RG_list.append(RG/total_trans)
-    BR_list.append(BR/total_trans)
-    BB_list.append(BB/total_trans)
-    BG_list.append(BG/total_trans)
-    GR_list.append(GR/total_trans)
-    GB_list.append(GB/total_trans)
-    GG_list.append(GG/total_trans)
+
+
+    RR_list.append(RR)
+    RB_list.append(RB)
+    RG_list.append(RG)
+    BR_list.append(BR)
+    BB_list.append(BB)
+    BG_list.append(BG)
+    GR_list.append(GR)
+    GB_list.append(GB)
+    GG_list.append(GG)
+    trans_rate.append(total_trans)
     total_run = total_run + 1
 
 
@@ -139,11 +152,12 @@ list.append(BG_list)
 list.append(GR_list)
 list.append(GB_list)
 list.append(GG_list)
+list.append(trans_rate)
 
 d1 = {'interaction':list}
 df1 = pd.DataFrame(data = d1)
-df1.to_csv('interaction_0.26',index=False)
+df1.to_csv('Infection_Jan.16_0.03lag_10',index=False)
 
 d2 = {'recover_list':recover_rate}
 df2 = pd.DataFrame(data = d2)
-df2.to_csv('recover_0.26',index=False)
+df2.to_csv('recover_Jan.16_0.03lag_10',index=False)

@@ -78,7 +78,27 @@ def SIR(final_list,beta,gamma,SIR_list):
 
     return SIR_list,RR,RB,RG,BR,BB,BG,GR,GB,GG
 
+def find_R(big):
+    for i in list(big):
+        if big[i] == "R":
+            return i
 
+    return "NA"
+
+
+def find_B(big):
+    for i in list(big):
+        if big[i] == "B":
+            return i
+
+    return "NA"
+
+def find_G(big):
+    for i in list(big):
+        if big[i] == "G":
+            return i
+
+    return "NA"
 
 
 
