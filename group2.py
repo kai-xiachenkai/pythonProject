@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy
 
-df_3 = pd.read_csv("vnew2")
-df_4 = pd.read_csv("rb_new2")
-df_5 = pd.read_csv("bb_new2")
-df_6 = pd.read_csv("bg_new2")
-df_1 = pd.read_csv("rr_new2")
-df_2 = pd.read_csv("rg_new2")
-df_7 = pd.read_csv("gg_new2")
+df_3 = pd.read_csv("vnew2.1")
+df_4 = pd.read_csv("rb_new2.1")
+df_5 = pd.read_csv("bb_new2.1")
+df_6 = pd.read_csv("bg_new2.1")
+df_1 = pd.read_csv("rr_new2.1")
+df_2 = pd.read_csv("rg_new2.1")
+df_7 = pd.read_csv("gg_new2.1")
 
 rows_1 = df_1["interaction"].values.tolist()
 rows_2 = df_2["interaction"].values.tolist()
@@ -25,14 +25,73 @@ rows_5new = numpy.array(rows_5)
 rows_6new = numpy.array(rows_6)
 rows_7new = numpy.array(rows_7)
 
-rows_1new = rows_1new*2001/3001
-rows_2new = rows_2new*2001/3001
-rows_4new = rows_4new*2001/3001
-rows_5new = rows_5new*2001/3001
-rows_6new = rows_6new*2001/3001
-rows_7new = rows_7new*2001/3001
+df_3 = pd.read_csv("vnew2")
+df_4 = pd.read_csv("rb_new2")
+df_5 = pd.read_csv("bb_new2")
+df_6 = pd.read_csv("bg_new2")
+df_1 = pd.read_csv("rr_new2")
+df_2 = pd.read_csv("rg_new2")
+df_7 = pd.read_csv("gg_new2")
+
+rows_9 = df_1["interaction"].values.tolist()
+rows_10 = df_2["interaction"].values.tolist()
+rows_11 = df_3["interaction"].values.tolist()
+rows_12 = df_4["interaction"].values.tolist()
+rows_13 = df_5["interaction"].values.tolist()
+rows_14 = df_6["interaction"].values.tolist()
+rows_15 = df_7["interaction"].values.tolist()
+
+rows_9new = numpy.array(rows_9)
+rows_10new = numpy.array(rows_10)
+rows_11new = numpy.array(rows_11)
+rows_12new = numpy.array(rows_12)
+rows_13new = numpy.array(rows_13)
+rows_14new = numpy.array(rows_14)
+rows_15new = numpy.array(rows_15)
+
+rows_3new = numpy.concatenate((rows_11new,rows_3new[0:3]))
+rows_4new = numpy.concatenate((rows_12new,rows_4new[0:3]))
+rows_5new = numpy.concatenate((rows_13new,rows_5new[0:3]))
+rows_6new = numpy.concatenate(( rows_14new,rows_6new[0:3]))
+rows_7new = numpy.concatenate((rows_15new,rows_7new[0:3]))
+rows_1new = numpy.concatenate((rows_9new,rows_1new[0:3]))
+rows_2new = numpy.concatenate((rows_10new,rows_2new[0:3]))
+
+df_3 = pd.read_csv("vnew2.3")
+df_4 = pd.read_csv("rb_new2.3")
+df_5 = pd.read_csv("bb_new2.3")
+df_6 = pd.read_csv("bg_new2.3")
+df_1 = pd.read_csv("rr_new2.3")
+df_2 = pd.read_csv("rg_new2.3")
+df_7 = pd.read_csv("gg_new2.3")
+
+rows_9 = df_1["interaction"].values.tolist()
+rows_10 = df_2["interaction"].values.tolist()
+rows_11 = df_3["interaction"].values.tolist()
+rows_12 = df_4["interaction"].values.tolist()
+rows_13 = df_5["interaction"].values.tolist()
+rows_14 = df_6["interaction"].values.tolist()
+rows_15 = df_7["interaction"].values.tolist()
+
+rows_9new = numpy.array(rows_9)
+rows_10new = numpy.array(rows_10)
+rows_11new = numpy.array(rows_11)
+rows_12new = numpy.array(rows_12)
+rows_13new = numpy.array(rows_13)
+rows_14new = numpy.array(rows_14)
+rows_15new = numpy.array(rows_15)
+
+rows_3new = numpy.concatenate((rows_3new,rows_11new))
+rows_4new = numpy.concatenate((rows_4new,rows_12new))
+rows_5new = numpy.concatenate((rows_5new,rows_13new))
+rows_6new = numpy.concatenate((rows_6new, rows_14new))
+rows_7new = numpy.concatenate((rows_7new,rows_15new))
+rows_1new = numpy.concatenate((rows_1new,rows_9new))
+rows_2new = numpy.concatenate((rows_2new,rows_10new))
 
 rows_8 = [sum(x) for x in zip(rows_1new,rows_2new,rows_4new,rows_5new,rows_6new,rows_7new)]
+
+print(rows_3new,rows_3new,rows_5new)
 
 import matplotlib.pyplot as plt
 
@@ -73,12 +132,12 @@ plt.xlabel("fragmentation_rate")
 plt.ylabel("pair density")
 plt.show()
 
-f_list = numpy.array(rows_3)
+f_list = rows_3new
 a = (1/4+0.9/4)
 y_list = a/(a+1000*f_list)
 
-plt.plot(f_list,y_list, '-*', color='pink', label="total_P")
-plt.plot(rows_3new, rows_8, '->', color='black', label="total_P")
+plt.plot(f_list,y_list, '-*', color='pink', label="Predicted_total_P")
+plt.plot(rows_3new, rows_8, '->', color='black', label="Simulated_total_P")
 
 plt.show()
 
