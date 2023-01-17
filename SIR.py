@@ -19,20 +19,26 @@ def search_big(final_list):
     return group_now
 
 
-def infection(SIR_list,group_now,beta):
+def infection(SIR_list,group_now,beta1,beta2,beta3):
     xr = 0
     xb = 0
     xg = 0
     for i in list(group_now):
         number = random.random()
-        if SIR_list[i] == "S":
-            if number < beta:
-                SIR_list[i] = "I"
-                if group_now[i] == "R":
+        if group_now[i] == "R":
+            if SIR_list[i] == "S":
+                if number < beta1:
+                    SIR_list[i] = "I"
                     xr = xr + 1
-                elif group_now[i] == "B":
+        elif group_now[i] == "B":
+            if SIR_list[i] == "S":
+                if number < beta2:
+                    SIR_list[i] = "I"
                     xb = xb + 1
-                elif group_now[i] == "G":
+        elif group_now[i] == "G":
+            if SIR_list[i] == "S":
+                if number < beta3:
+                    SIR_list[i] = "I"
                     xg = xg + 1
 
 
@@ -41,7 +47,7 @@ def infection(SIR_list,group_now,beta):
     return SIR_list,xr,xb,xg
 
 
-def SIR(final_list,beta,gamma,SIR_list):
+def SIR(final_list,beta1,gamma,beta2,beta3,SIR_list):
 
     RR = 0
     RB = 0
@@ -56,7 +62,7 @@ def SIR(final_list,beta,gamma,SIR_list):
     for i in final_list:
         for j in list(i):
             if record_SIR[j] == "I":
-                SIR_list,xr,xb,xg = infection(SIR_list,i,beta)
+                SIR_list,xr,xb,xg = infection(SIR_list,i,beta1,beta2,beta3)
                 if i[j] == "R":
                     RR = RR + xr
                     RB = RB + xb

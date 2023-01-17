@@ -23,14 +23,16 @@ v_gr = 0.5*0.5
 v_gb = 0.5*0.5
 v_gg = 0.5
 
-beta = 0.002
+
 gamma = 0.015
+beta2 = 0.002
+beta3 = 0.3*beta2
+beta1 = beta2*0.3
 
-pr = 1/2*10/10
-pg = 1/2*5/10
+pr = 9/20
 
+pb = 1/2*10/10
 
-pb = 1-pg-pr
 initial_list,red_list,blue_list,green_list = create_initial(n,pr,pb)
 
 groupN, iteration_runs, final_list = EZ_formation(n, N, initial_list, v_fr, v_fb, v_fg, v_rr, v_rb, v_rg, v_br, v_bb, v_bg, v_gr, v_gb, v_gg)
@@ -61,14 +63,14 @@ while total_run < 100:
     SIR_list = creat_SIR(n)
     BigG = search_big(final_list)
     #item = random.choice(list(BigG))
-    if find_R(BigG) == "NA":
-        if len(red_list) == 0:
+    if find_B(BigG) == "NA":
+        if len(blue_list) == 0:
             print(0)
         else:
-            item = random.choice(red_list)
+            item = random.choice(blue_list)
             SIR_list[item] = "I"
     else:
-        item = find_R(BigG)
+        item = find_B(BigG)
         SIR_list[item] = "I"
 
     RR = 0
@@ -84,7 +86,7 @@ while total_run < 100:
     while iterations < N1:
         groupN, iteration_runs, final_list = EZ_formation(n, m, final_list, v_fr, v_fb, v_fg, v_rr, v_rb, v_rg, v_br,
                                                           v_bb, v_bg, v_gr, v_gb, v_gg)
-        SIR_list, rr, rb, rg, br, bb, bg, gr, gb, gg = SIR(final_list, beta, gamma, SIR_list)
+        SIR_list, rr, rb, rg, br, bb, bg, gr, gb, gg = SIR(final_list, beta1, gamma,beta2,beta3, SIR_list)
         iterations = iterations + 1
         RR = RR + rr
         RB = RB + rb
@@ -156,8 +158,8 @@ list.append(trans_rate)
 
 d1 = {'interaction':list}
 df1 = pd.DataFrame(data = d1)
-df1.to_csv('Infection_Jan.16_0.03lag_10',index=False)
+df1.to_csv('Infection_Jan.17_0.03_IM4_10',index=False)
 
 d2 = {'recover_list':recover_rate}
 df2 = pd.DataFrame(data = d2)
-df2.to_csv('recover_Jan.16_0.03lag_10',index=False)
+df2.to_csv('recover_Jan.17_0.03_IM4_10',index=False)
