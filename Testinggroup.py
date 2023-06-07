@@ -7,38 +7,39 @@ from SIR import *
 
 start_time = datetime.now()
 
-N = 2000
+N = 4000
 n = 1000
 
-v_fr = 0.03
-v_fb = 0.03
-v_fg = 0.03
-v_rr = 0.5
-v_rb = 0.5*0.5
-v_rg = 0.5*0.5
-v_br = 0.5*0.5
-v_bb = 0.5
-v_bg = 0.5*0.5
-v_gr = 0.5*0.5
-v_gb = 0.5*0.5
-v_gg = 0.5
+v_fr = 0.064
+v_fb = 0.064
+v_fg = 0.064
+F = 0.02
+v_rr = 0.32
+v_rb = 0.32*F
+v_rg = 0.32*F
+v_br = 0.32*F
+v_bb = 0.32
+v_bg = 0.32*F
+v_gr = 0.32*F
+v_gb = 0.32*F
+v_gg = 0.32
 
 
-gamma = 0.015
-beta2 = 0.002
-beta3 = 0.3*beta2
-beta1 = beta2*0.3
+gamma = 0.05
+beta1 = 0.005*0.9
+beta3 = beta1
+beta2 = beta1
 
-pr = 9/20
+pr = 0.3
 
-pb = 1/2*10/10
+pb = 1-pr
 
 initial_list,red_list,blue_list,green_list = create_initial(n,pr,pb)
 
 groupN, iteration_runs, final_list = EZ_formation(n, N, initial_list, v_fr, v_fb, v_fg, v_rr, v_rb, v_rg, v_br, v_bb, v_bg, v_gr, v_gb, v_gg)
 
 total_run = 0
-m = 500
+m = 1000
 N1 = 1200
 RR_list = []
 RB_list = []
@@ -62,15 +63,19 @@ while total_run < 100:
 
     SIR_list = creat_SIR(n)
     BigG = search_big(final_list)
-    #item = random.choice(list(BigG))
-    if find_B(BigG) == "NA":
-        if len(blue_list) == 0:
+    """
+    item = random.choice(list(BigG))
+    SIR_list[item] = "I"
+    
+    """
+    if find_R(BigG) == "NA":
+        if len(red_list) == 0:
             print(0)
         else:
-            item = random.choice(blue_list)
+            item = random.choice(red_list)
             SIR_list[item] = "I"
     else:
-        item = find_B(BigG)
+        item = find_R(BigG)
         SIR_list[item] = "I"
 
     RR = 0
@@ -158,8 +163,8 @@ list.append(trans_rate)
 
 d1 = {'interaction':list}
 df1 = pd.DataFrame(data = d1)
-df1.to_csv('Infection_Jan.17_0.03_IM4_10',index=False)
+df1.to_csv('Infection_Jun.6_18',index=False)
 
 d2 = {'recover_list':recover_rate}
 df2 = pd.DataFrame(data = d2)
-df2.to_csv('recover_Jan.17_0.03_IM4_10',index=False)
+df2.to_csv('recover_Jun.6_18',index=False)

@@ -136,7 +136,8 @@ def search(list1, index):
 
     for i in range(len(list1)):
         m = list1[i]
-        if index in list(m):
+        #if index in list(m):
+        if index in m:
             return i
 
     return "False"

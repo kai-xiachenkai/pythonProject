@@ -61,13 +61,15 @@ rows_19 = df_19["recover_list"].values.tolist()
 
 
 
-ys = [rows_1,rows_2,rows_3,rows_4,rows_5,rows_6,rows_7,rows_8,rows_9,rows_10,rows_11,rows_12,rows_13,rows_14,rows_15,rows_16,rows_17,rows_18]
+ys = [rows_1,rows_2,rows_3,rows_4,rows_5,rows_6,rows_7,rows_8,rows_9,rows_10,rows_11,rows_12,rows_13,rows_14,rows_15,rows_16,rows_17,rows_18,rows_19]
 
-ys = numpy.array(ys)
-xs = numpy.array([0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1])
+
+xs = [0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1]
 
 for x, y in zip(xs, ys):
     plt.scatter([x] * len(y), y,alpha=0.3)
+
+plt.violinplot(ys,xs,widths=0.05,showextrema=False,showmedians=True)
 
 plt.show()
 
