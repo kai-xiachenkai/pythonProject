@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 """
 the function named, Create_initial(n), creates an initial list of length n, with each subject(R,B,G) has the same 
@@ -311,6 +312,51 @@ def search_loop(N,final_list):
     total_bg = 0
     total_gg = 0
     for i in final_list:
+        value = list(map(str, i.values()))
+        length = len(value)
+        array = np.array(value)
+        if length != 1:
+            for m in range(length):
+                for n in range(m+1,length):
+                    if array[m] == "R" and array[n] == "R":
+                        total_rr += 1
+                    elif array[m] == "R" and array[n] == "B":
+                        total_rb += 1
+                    elif array[m] == "R" and array[n] == "G":
+                        total_rg += 1
+                    elif array[m] == "B" and array[n] == "R":
+                        total_rb += 1
+                    elif array[m] == "B" and array[n] == "B":
+                        total_bb += 1
+                    elif array[m] == "B" and array[n] == "G":
+                        total_bg += 1
+                    elif array[m] == "G" and array[n] == "B":
+                        total_bg += 1
+                    elif array[m] == "G" and array[n] == "G":
+                        total_gg += 1
+                    elif array[m] == "G" and array[n] == "R":
+                        total_rg += 1
+
+
+    total_rr = total_rr/total
+    total_rb = total_rb/total
+    total_rg = total_rg/total
+    total_bb = total_bb/total
+    total_bg = total_bg/total
+    total_gg = total_gg/total
+    return total_rr,total_rb,total_rg,total_bb,total_bg,total_gg
+
+
+# This is slower
+def search_loop1(N,final_list):
+    total = N*(N-1)/2
+    total_rr = 0
+    total_rb = 0
+    total_rg = 0
+    total_bb = 0
+    total_bg = 0
+    total_gg = 0
+    for i in final_list:
         length = len(list(i))
         if length != 1:
             for m in range(length):
@@ -333,6 +379,9 @@ def search_loop(N,final_list):
                         total_gg += 1
                     elif i[list(i)[m]] == "G" and i[list(i)[n]] == "R":
                         total_rg += 1
+
+
+
     total_rr = total_rr/total
     total_rb = total_rb/total
     total_rg = total_rg/total
@@ -340,6 +389,3 @@ def search_loop(N,final_list):
     total_bg = total_bg/total
     total_gg = total_gg/total
     return total_rr,total_rb,total_rg,total_bb,total_bg,total_gg
-
-
-
