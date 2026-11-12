@@ -1,6 +1,8 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
+import numpy
 from matplotlib import pyplot as plt
+from sklearn import linear_model
 from statistics import mean
 
 def extractlist(rows):
@@ -63,61 +65,61 @@ def extractlist(rows):
 
 
 
-df_3 = pd.read_csv("Infection_July.12_1")
+df_3 = pd.read_csv("Infection_Aug.2_2_1")
 rows_3 = df_3["interaction"].values.tolist()
 
-df_4 = pd.read_csv("Infection_July.12_2")
+df_4 = pd.read_csv("Infection_Aug.2_2_2")
 rows_4 = df_4["interaction"].values.tolist()
 
-df_5 = pd.read_csv("Infection_July.12_3")
+df_5 = pd.read_csv("Infection_Aug.2_2_3")
 rows_5 = df_5["interaction"].values.tolist()
 
-df_6 = pd.read_csv("Infection_July.12_4")
+df_6 = pd.read_csv("Infection_Aug.2_2_4")
 rows_6 = df_6["interaction"].values.tolist()
 
-df_7 = pd.read_csv("Infection_July.12_5")
+df_7 = pd.read_csv("Infection_Aug.2_2_5")
 rows_7 = df_7["interaction"].values.tolist()
 
-df_8 = pd.read_csv("Infection_July.12_6")
+df_8 = pd.read_csv("Infection_Aug.2_2_6")
 rows_8 = df_8["interaction"].values.tolist()
 
-df_9 = pd.read_csv("Infection_July.12_7")
+df_9 = pd.read_csv("Infection_Aug.2_2_7")
 rows_9 = df_9["interaction"].values.tolist()
 
-df_10 = pd.read_csv("Infection_July.12_8")
+df_10 = pd.read_csv("Infection_Aug.2_2_8")
 rows_10 = df_10["interaction"].values.tolist()
 
-df_11 = pd.read_csv("Infection_July.12_9")
+df_11 = pd.read_csv("Infection_Aug.2_2_9")
 rows_11 = df_11["interaction"].values.tolist()
 
-df_12 = pd.read_csv("Infection_July.12_10")
+df_12 = pd.read_csv("Infection_Aug.2_2_10")
 rows_12 = df_12["interaction"].values.tolist()
 
-df_13 = pd.read_csv("Infection_July.12_11")
+df_13 = pd.read_csv("Infection_Aug.2_2_11")
 rows_13 = df_13["interaction"].values.tolist()
 
-df_14 = pd.read_csv("Infection_July.12_12")
+df_14 = pd.read_csv("Infection_Aug.2_2_12")
 rows_14 = df_14["interaction"].values.tolist()
 
-df_15 = pd.read_csv("Infection_July.12_13")
+df_15 = pd.read_csv("Infection_Aug.2_2_13")
 rows_15 = df_15["interaction"].values.tolist()
 
-df_16 = pd.read_csv("Infection_July.12_14")
+df_16 = pd.read_csv("Infection_Aug.2_2_14")
 rows_16 = df_16["interaction"].values.tolist()
 
-df_17 = pd.read_csv("Infection_July.12_15")
+df_17 = pd.read_csv("Infection_Aug.2_2_15")
 rows_17 = df_17["interaction"].values.tolist()
 
-df_18 = pd.read_csv("Infection_July.12_16")
+df_18 = pd.read_csv("Infection_Aug.2_2_16")
 rows_18 = df_18["interaction"].values.tolist()
 
-df_19 = pd.read_csv("Infection_July.12_17")
+df_19 = pd.read_csv("Infection_Aug.2_2_17")
 rows_19 = df_19["interaction"].values.tolist()
 
-df_20 = pd.read_csv("Infection_July.12_18")
+df_20 = pd.read_csv("Infection_Aug.2_2_18")
 rows_20 = df_20["interaction"].values.tolist()
 
-df_21 = pd.read_csv("Infection_July.12_19")
+df_21 = pd.read_csv("Infection_Aug.2_2_19")
 rows_21 = df_21["interaction"].values.tolist()
 
 
@@ -157,7 +159,9 @@ gg_list = [gg_list1,gg_list2,gg_list3,gg_list4,gg_list5,gg_list6,gg_list7,gg_lis
 
 xs = [1/30,2/30,3/30,4/30,5/30,6/30,7/30,8/30,9/30,10/30,11/30,12/30,13/30,14/30,15/30,16/30,17/30,18/30,19/30]
 
-for x, y in zip(xs, rb_list):
+"""
+
+for x, y in zip(xs, rr_list):
     plt.scatter([x] * len(y), y, alpha=0.5)
 
 
@@ -166,10 +170,97 @@ plt.ylabel('Spread from R to R')
 plt.title('Chance of Spreading from R to R during the SIR')
 
 
+
 plt.violinplot(rr_list,xs,widths=0.05,showextrema=False,showmedians=True)
 
 plt.show()
 
+
+
+for x, y in zip(xs, rb_list):
+    plt.scatter([x] * len(y), y, alpha=0.5)
+
+
+plt.xlabel('Pr')
+plt.ylabel('Spread from R to B')
+plt.title('Chance of Spreading from R to B during the SIR')
+
+
+
+plt.violinplot(rb_list,xs,widths=0.05,showextrema=False,showmedians=True)
+
+plt.show()
+
+
+for x, y in zip(xs, br_list):
+    plt.scatter([x] * len(y), y, alpha=0.5)
+
+
+plt.xlabel('Pr')
+plt.ylabel('Spread from B to R')
+plt.title('Chance of Spreading from B to R during the SIR')
+
+
+plt.violinplot(br_list,xs,widths=0.05,showextrema=False,showmedians=True)
+
+
+plt.show()
+
+for x, y in zip(xs, rg_list):
+    plt.scatter([x] * len(y), y, alpha=0.5)
+
+
+plt.xlabel('Pr')
+plt.ylabel('Spread from R to G')
+plt.title('Chance of Spreading from R to G during the SIR')
+
+
+
+plt.violinplot(rg_list,xs,widths=0.05,showextrema=False,showmedians=True)
+
+plt.show()
+
+for x, y in zip(xs, gr_list):
+    plt.scatter([x] * len(y), y, alpha=0.5)
+
+
+plt.xlabel('Pr')
+plt.ylabel('Spread from G to R')
+plt.title('Chance of Spreading from G to R during the SIR')
+
+
+
+plt.violinplot(gr_list,xs,widths=0.05,showextrema=False,showmedians=True)
+
+plt.show()
+
+for x, y in zip(xs, bb_list):
+    plt.scatter([x] * len(y), y, alpha=0.5)
+
+
+plt.xlabel('Pr')
+plt.ylabel('Spread from B to B')
+plt.title('Chance of Spreading from B to B during the SIR')
+
+
+
+plt.violinplot(bb_list,xs,widths=0.05,showextrema=False,showmedians=True)
+
+plt.show()
+
+for x, y in zip(xs, bg_list):
+    plt.scatter([x] * len(y), y, alpha=0.5)
+
+
+plt.xlabel('Pr')
+plt.ylabel('Spread from B to G')
+plt.title('Chance of Spreading from B to G during the SIR')
+
+
+
+plt.violinplot(bg_list,xs,widths=0.05,showextrema=False,showmedians=True)
+
+plt.show()
 
 for x, y in zip(xs, gb_list):
     plt.scatter([x] * len(y), y, alpha=0.5)
@@ -180,7 +271,58 @@ plt.ylabel('Spread from G to B')
 plt.title('Chance of Spreading from G to B during the SIR')
 
 
+
 plt.violinplot(gb_list,xs,widths=0.05,showextrema=False,showmedians=True)
 
+plt.show()
 
+"""
+
+for x, y in zip(xs, gg_list):
+    plt.scatter([x] * len(y), y, alpha=0.5)
+
+
+plt.xlabel('Pr')
+plt.ylabel('Spread from G to G')
+plt.title('Chance of Spreading from G to G during the SIR')
+
+
+
+plt.violinplot(gg_list,xs,widths=0.05,showextrema=False,showmedians=True)
+
+plt.show()
+
+gg_listnew = sum(gg_list, [])
+xs1 = numpy.repeat(xs,100)
+deletelist = []
+
+for i in range(len(xs1)):
+    if gg_listnew[i] < 1/1000:
+        deletelist.append(i)
+
+
+gg_listnew = np.delete(gg_listnew,deletelist)
+xs1 = np.delete(xs1,deletelist)
+print(len(xs1))
+
+mymodel = numpy.poly1d(numpy.polyfit(xs1, gg_listnew, 4))
+
+print(mymodel)
+
+myline = numpy.linspace(0, 2/3, 100)
+
+plt.scatter(xs1, gg_listnew)
+plt.plot(myline, mymodel(myline))
+plt.show()
+
+#fit the model
+fit = np.polyfit(np.log(xs1), gg_listnew, 1)
+
+#view the output of the model
+print(fit)
+
+logy = np.log(xs1) * fit[0] + fit[1]
+
+plt.scatter(xs1, gg_listnew)
+plt.plot(xs1,logy)
 plt.show()

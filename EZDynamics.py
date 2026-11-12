@@ -209,6 +209,9 @@ def EZ_formation(n,N,initial_list,v_fr,v_fb,v_fg,v_rr,v_rb,v_rg,v_br,v_bb,v_bg,v
             if color == "R":  # evaluate the case when first particle is red
                 random_j = random_number(random_index, n)  # second individual drawn
                 j_index = search(initial_list, random_j)  # the location of the group that the second one is in
+                if j_index == "False":
+                    print(random_j)
+                    print(initial_list)
                 jlist = initial_list[j_index]  # the group of the second individual
                 jcolor = jlist[random_j]  # the color of second individual
                 if r < v_fr:  # situation where dissolve occurs.
@@ -228,6 +231,9 @@ def EZ_formation(n,N,initial_list,v_fr,v_fb,v_fg,v_rr,v_rb,v_rg,v_br,v_bb,v_bg,v
             elif color == "B":  # evaluate the case when first particle is blue
                 random_j = random_number(random_index, n)
                 j_index = search(initial_list, random_j)
+                if j_index == "False":
+                    print(random_j)
+                    print(initial_list)
                 jlist = initial_list[j_index]
                 jcolor = jlist[random_j]
                 if r < v_fb:
@@ -247,6 +253,9 @@ def EZ_formation(n,N,initial_list,v_fr,v_fb,v_fg,v_rr,v_rb,v_rg,v_br,v_bb,v_bg,v
             elif color == "G":  # evaluate the case when first particle is green
                 random_j = random_number(random_index, n)
                 j_index = search(initial_list, random_j)
+                if j_index == "False":
+                    print(random_j)
+                    print(initial_list)
                 jlist = initial_list[j_index]
                 jcolor = jlist[random_j]
                 if r < v_fg:
@@ -389,3 +398,17 @@ def search_loop1(N,final_list):
     total_bg = total_bg/total
     total_gg = total_gg/total
     return total_rr,total_rb,total_rg,total_bb,total_bg,total_gg
+
+def dissolve_S(listi,SIR_list):
+    newlist = []
+    copylist = listi.copy()
+    tupple = {}
+    for i in list(listi):
+        if SIR_list[i] == "S":
+            tupple[i] = listi[i]
+            del copylist[i]
+    if tupple != {}:
+        newlist.append(tupple)
+    newlist.append(copylist)
+
+    return newlist

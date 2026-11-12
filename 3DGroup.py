@@ -5,6 +5,7 @@ from mpl_toolkits import mplot3d
 from sympy import Eq, Symbol, solve,log
 import scipy.optimize
 import math
+import matplotlib.ticker as mtick
 from matplotlib import cm
 
 
@@ -410,9 +411,11 @@ for x, y in zip(xs, ys2):
     ax.scatter3D([x] * len(y), y, 0.007, alpha=0.5,c = y, cmap = my_cmap)
 '''
 
-ax.set_xlabel('p_r')
-ax.set_ylabel('R/N')
-ax.set_zlabel('Beta')
-plt.title('p_r versus Total Infected Number')
+ax.set_xlabel('$p_R$',size = 25,labelpad=13)
+ax.set_ylabel('$R/N$',size = 25,labelpad=13)
+ax.set_zlabel('$β$',size = 25,labelpad=13)
+ax.tick_params('z', labelsize=20)
+plt.xticks(fontsize = 20)
+plt.yticks(fontsize = 20)
 
 plt.show()

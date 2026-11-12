@@ -7,8 +7,8 @@ from SIR import *
 
 start_time = datetime.now()
 
-N = 4000
-n = 1000
+N = 15000
+n = 3000
 
 v_fr = 0.025
 v_fb = 0.025
@@ -21,7 +21,7 @@ v_rr = 0.3
 v_rb = 0.3*Frb
 v_rg = 0.3*Frg
 v_br = 0.3*Frb
-v_bb = 0.5
+v_bb = 0.3
 v_bg = 0.3*Fbg
 v_gr = 0.3*Frg
 v_gb = 0.3*Fbg
@@ -34,6 +34,7 @@ beta3 = beta1
 beta2 = beta1
 
 pr = 19/30
+
 pb = 1/3
 
 
@@ -42,8 +43,8 @@ initial_list,red_list,blue_list,green_list = create_initial(n,pr,pb)
 groupN, iteration_runs, final_list = EZ_formation(n, N, initial_list, v_fr, v_fb, v_fg, v_rr, v_rb, v_rg, v_br, v_bb, v_bg, v_gr, v_gb, v_gg)
 
 total_run = 0
-m = 1000
-N1 = 1200
+m = 3000
+N1 = 2000
 RR_list = []
 RB_list = []
 RG_list = []
@@ -62,8 +63,13 @@ print(0)
 
 while total_run < 100:
 
-    iterations = 0
+    initial_list, red_list, blue_list, green_list = create_initial(n, pr, pb)
 
+    groupN, iteration_runs, final_list = EZ_formation(n, N, initial_list, v_fr, v_fb, v_fg, v_rr, v_rb, v_rg, v_br,
+                                                      v_bb, v_bg, v_gr, v_gb, v_gg)
+
+    iterations = 0
+    print(total_run)
     SIR_list = creat_SIR(n)
     BigG = search_big(final_list)
 
@@ -98,6 +104,8 @@ while total_run < 100:
                                                           v_bb, v_bg, v_gr, v_gb, v_gg)
         SIR_list, rr, rb, rg, br, bb, bg, gr, gb, gg = SIR(final_list, beta1, gamma,beta2,beta3, SIR_list)
         iterations = iterations + 1
+        #final_list = Risk_Averse(SIR_list, 7, final_list)
+        #final_list = contangion_driven(SIR_list,0.1,final_list)
         RR = RR + rr
         RB = RB + rb
         RG = RG + rg
@@ -136,6 +144,7 @@ while total_run < 100:
     total_run = total_run + 1
 
 
+
 end_time = datetime.now()
 print('Duration: {}'.format(end_time - start_time))
 
@@ -161,6 +170,7 @@ list.append(RG_list)
 list.append(BR_list)
 list.append(BB_list)
 list.append(BG_list)
+
 list.append(GR_list)
 list.append(GB_list)
 list.append(GG_list)
@@ -168,8 +178,8 @@ list.append(trans_rate)
 
 d1 = {'interaction':list}
 df1 = pd.DataFrame(data = d1)
-df1.to_csv('Infection_Aug.8_19',index=False)
+df1.to_csv('Infection_2026.Reference3000_19',index=False)
 
 d2 = {'recover_list':recover_rate}
 df2 = pd.DataFrame(data = d2)
-df2.to_csv('recover_Aug.8_19',index=False)
+df2.to_csv('recover_2026.Reference3000_19',index=False)

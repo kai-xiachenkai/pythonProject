@@ -1,4 +1,6 @@
 import random
+import math
+from EZDynamics import *
 
 def creat_SIR(n):
     i = 0
@@ -105,6 +107,48 @@ def find_G(big):
             return i
 
     return "NA"
+
+
+
+def Risk_Averse(SIR_list,k,grouplist):
+    temp_list = grouplist.copy()
+    for i in grouplist:
+        if len(list(i)) > k:
+            key = 0
+            for d in list(i):
+                if SIR_list[d] == "I":
+                    key += 1
+            if key >= k:
+                temp = dissolve_S(i,SIR_list)
+                temp_list.remove(i.copy())
+                temp_list = temp_list + temp
+    return temp_list
+
+def contangion_driven(SIR_list,percent,grouplist):
+    list_I = []
+    listfinal = grouplist.copy()
+    for key,value in SIR_list.items():
+        if value == "I":
+            list_I.append(key)
+    number_of_I = math.floor(len(list_I)*percent)
+    random_I = random.sample(list_I,number_of_I)
+
+    new_group = {}
+    for i in random_I:
+        groupindex = search(listfinal,i)
+        grouptochange = listfinal[groupindex].copy()
+        listfinal.remove(grouptochange)
+        new_group[i] = grouptochange[i]
+        grouptochange.pop(i)
+
+
+        listfinal.append(grouptochange)
+
+    listfinal.append(new_group)
+
+    return listfinal
+
+
 
 
 
